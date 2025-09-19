@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insufficient Deposit - ONAFRIQ MAURITIUS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+    }
+
+    .header {
+      width: 100vw;
+      background-color: #6c2bd9;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      padding: 20px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      z-index: 1000;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 1001;
+      min-width: 150px;
+    }
+
+    .dropdown a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .main-content {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 100px);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .message-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .message-box h2 {
+      color: #6c2bd9;
+      margin-bottom: 20px;
+    }
+
+    .message-box p {
+      color: #555;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .deposit-plans-container {
+      background-color: #fafafa;
+      border: 1.5px solid #6c2bd9;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(108, 43, 217, 0.1);
+      text-align: left;
+    }
+
+    .deposit-plans-container h3 {
+      margin-bottom: 15px;
+      color: #4b25a4;
+    }
+
+    .deposit-select {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 1.5px solid #6c2bd9;
+      border-radius: 8px;
+      background-color: #fff;
+      color: #333;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'14'%20height%3D'10'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M1%201l6%206%206-6'%20stroke%3D'%236c2bd9'%20stroke-width%3D'2'%20fill%3D'none'%20fill-rule%3D'evenodd'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px 10px;
+      cursor: pointer;
+    }
+
+    .warning-message {
+      color: #d93025;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .message-box a.button {
+      display: inline-block;
+      background-color: #6c2bd9;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .message-box a.button:hover {
+      background-color: #5a23c8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    <div class="title">ONAFRIQ MAURITIUS</div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="logout.html">Logout</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="message-box">
+      <h2>INSUFFICIENT DEPOSIT</h2>
+      <p>Your current deposit is not enough to proceed. Please complete the required payment to continue using our services.</p>
+
+      <div class="deposit-plans-container">
+        <h3>Choose a Deposit Plan</h3>
+        <select id="depositPlan" class="deposit-select">
+          <option value="">-- Select a Plan --</option>
+          <option value="Starter-plan.html">🌱 𝗦𝗧𝗔𝗥𝗧𝗘𝗥 𝗣𝗟𝗔𝗡 ⇥85,500RFW ⇤ 4 Videos Per Day</option>
+          <option value="Basic-plan.html">🧰 𝗕𝗔𝗦𝗜𝗖 𝗣𝗟𝗔𝗡 ⇥155,500RWF ⇤ 6 Videos Per Day</option>
+          <option value="Blonze-plan.html">🥉 𝗕𝗥𝗢𝗡𝗭𝗘 𝗣𝗟𝗔𝗡 ⇥305,000RWF ⇤ 10 Videos Per Day</option>
+          <option value="Standard-plan.html">⚖ 𝗦𝗧𝗔𝗡𝗗𝗔𝗥𝗗 𝗣𝗟𝗔𝗡 ⇥500,500RWF ⇤ 15 Videos Per Day</option>
+          <option value="Silver-plan.html">🪙 𝗦𝗜𝗟𝗩𝗘𝗥 𝗣𝗟𝗔𝗡 ⇥705,000RFW ⇤ 20 Videos Per Day</option>
+          <option value="Premium-plan.html">💼 𝗣𝗥𝗘𝗠𝗜𝗨𝗠 𝗣𝗟𝗔𝗡 ⇥1,100,000 ⇤ 25 Videos Per Day</option>
+          <option value="Gold-plan.html">🏅 𝗚𝗢𝗟𝗗 𝗣𝗟𝗔𝗡 ⇥1,600,000RWF ⇤ 30 Videos Per Day</option>
+          <option value="Platinum-plan.html">💎 𝗣𝗟𝗔𝗧𝗜𝗡𝗨𝗠 𝗣𝗟𝗔𝗡 ⇥2,100,000RWF ⇤ 35 Videos Per Day</option>
+          <option value="VIP-plan.html">👑 𝗩𝗜𝗣 𝗣𝗟𝗔𝗡 ⇥3,000,500RWF ⇤ 41 Videos Per Day</option>
+        </select>
+        <div id="planWarning" class="warning-message" style="display: none;">Please select a deposit plan before proceeding.</div>
+      </div>
+
+      <a href="#" class="button" onclick="handleDeposit()">Deposit Now</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById("dropdownMenu");
+      const icon = document.querySelector('.menu-icon');
+      if (!menu.contains(event.target) && !icon.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+
+    function handleDeposit() {
+      const selectedPlan = document.getElementById("depositPlan").value;
+      const warning = document.getElementById("planWarning");
+
+      if (!selectedPlan) {
+        warning.style.display = "block";
+      } else {
+        warning.style.display = "none";
+        window.location.href = selectedPlan;
+      }
+    }
+  </script>
+</body>
+</html>

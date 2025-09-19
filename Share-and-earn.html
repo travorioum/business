@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share and Earn</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 480px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: auto;
+    }
+
+    .header {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header a {
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .link-box {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .link-box input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      font-size: 14px;
+    }
+
+    .link-box button {
+      background: #00b368;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .steps p {
+      font-size: 14px;
+      color: #444;
+      margin: 10px 0;
+    }
+
+    .highlight {
+      color: #e1006b;
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .icons img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .rewards {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .reward {
+      background: #f1f3f5;
+      flex: 1;
+      border-radius: 10px;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #222;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      🔥 Share and Earn
+      <a href="#">Need Help?</a>
+    </div>
+
+    <div class="link-box">
+      <input type="text" value="https://moneyeasilyhym.top/25146777262403" id="referralLink" readonly />
+      <button onclick="copyLink()">COPY</button>
+    </div>
+
+    <div class="steps">
+      <p>1. Copy and share with your friends and family.</p>
+      <p class="highlight">2. As long as the friends you invite make money on our platform, you get a 10% rake reward.</p>
+      <p>3. Use our Sharing Guide to invite more people.</p>
+      <p>4. Earn RWF 2,000 when they sign up as a user.</p>
+
+    </div>
+
+    <div class="rewards">
+      <div class="reward">RWF 500<br>Per Click</div>
+      <div class="reward">RWF 2,000<br>Per Invite</div>
+    </div>
+  </div>
+
+  <script>
+    function copyLink() {
+      const link = document.getElementById("referralLink");
+      link.select();
+      document.execCommand("copy");
+      alert("Link copied to clipboard!");
+    }
+  </script>
+</body>
+</html>

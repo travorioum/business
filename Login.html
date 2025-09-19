@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MFS AFRICA LTD - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f5f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h3 {
+      color: #A000FF;
+    }
+
+    h2 {
+      margin: 10px 0;
+    }
+
+    p {
+      color: gray;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .login-btn {
+      width: 100%;
+      background-color: #1dcf82;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .signup-text {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .signup-text a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>MFS AFRICA LTD</h3>
+    <h2>Log In</h2>
+    <p>Welcome back! Log in to continue earning with <b>MFS AFRICA LTD</b>.</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email Address" required />
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+      <button type="submit" class="login-btn">Log In</button>
+    </form>
+
+    <div class="signup-text">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbuLoyGu6v7dJUDQ0iM2DkvEZs0D9z2Do",
+      authDomain: "mfs-africa-ltd.firebaseapp.com",
+      projectId: "mfs-africa-ltd",
+      storageBucket: "mfs-africa-ltd.firebasestorage.app",
+      messagingSenderId: "686833267635",
+      appId: "1:686833267635:web:c5a531346887f6452bd1c6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // Redirect to dashboard or home page
+        window.location.href = "Dashboard.html";
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Withdraw Funds - MFS AFRICA LTD</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #6c2bd9;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .dropdown button {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      width: 100%;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dropdown button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      max-width: 500px;
+      background: #fff;
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      flex-grow: 1;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6c2bd9;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .button-spinner-wrapper {
+      position: relative;
+      height: 56px;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: #6c2bd9;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #5b24b0;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: 600;
+      color: green;
+      text-align: center;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+
+    .balance-info {
+      margin-bottom: 25px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+
+    .spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #6c2bd9;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px 10px;
+      color: #333;
+      font-size: 14px;
+      background-color: transparent;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="menu-btn" onclick="toggleDropdown()">☰</button>
+    ONAFRIQ MAURITIUS
+    <div class="dropdown" id="dropdownMenu">
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Withdraw Funds</h2>
+    <div class="balance-info" id="bonusDisplay">Loading bonus...</div>
+
+    <form id="withdrawForm">
+      <label for="method">Payment Method</label>
+      <select id="method" disabled>
+        <option value="MTN" selected>MTN Mobile Money</option>
+      </select>
+
+      <label for="amount">Amount (RWF)</label>
+      <input type="number" id="amount" min="100" required placeholder="Enter amount to withdraw" />
+
+      <label for="recipient">MTN Phone Number</label>
+      <input type="text" id="recipient" maxlength="10" required placeholder="078/079xxxxxxx" />
+
+      <label for="owner">Account Owner's Full Name</label>
+      <input type="text" id="owner" required placeholder="Enter full names" />
+
+      <div class="button-spinner-wrapper">
+        <button type="submit" id="withdrawBtn">Withdraw</button>
+        <div class="spinner" id="spinner"></div>
+      </div>
+    </form>
+
+    <div class="message" id="message"></div>
+    <div class="error" id="error"></div>
+  </div>
+
+  <div class="footer">
+    &copy; 2022 Onafriq Mauritius. All rights reserved.
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbuLoyGu6v7dJUDQ0iM2DkvEZs0D9z2Do",
+      authDomain: "mfs-africa-ltd.firebaseapp.com",
+      databaseURL: "https://mfs-africa-ltd-default-rtdb.firebaseio.com",
+      projectId: "mfs-africa-ltd",
+      storageBucket: "mfs-africa-ltd.appspot.com",
+      messagingSenderId: "686833267635",
+      appId: "1:686833267635:web:c5a531346887f6452bd1c6"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    const bonusDisplay = document.getElementById('bonusDisplay');
+    const form = document.getElementById('withdrawForm');
+    const spinner = document.getElementById('spinner');
+    const message = document.getElementById('message');
+    const error = document.getElementById('error');
+
+    let currentBonus = 0;
+    let userId = null;
+    let username = '';
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        userId = user.uid;
+        db.ref("users/" + userId).once("value")
+          .then(snapshot => {
+            const userData = snapshot.val();
+            currentBonus = userData.bonus || 0;
+            username = userData.username || '';
+            bonusDisplay.textContent = "Bonus Available: RWF " + currentBonus;
+          });
+      } else {
+        alert("You must be logged in to withdraw funds.");
+        window.location.href = "login.html";
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      error.textContent = '';
+      message.textContent = '';
+      spinner.style.display = 'block';
+
+      const amount = parseInt(document.getElementById('amount').value);
+      const phone = document.getElementById('recipient').value.trim();
+      const name = document.getElementById('owner').value.trim();
+
+      if (amount > currentBonus) {
+        spinner.style.display = 'none';
+        error.textContent = "Insufficient bonus balance.";
+        return;
+      }
+
+      const withdrawalData = {
+        userId: userId,
+        username: username,
+        amount: amount,
+        phone: phone,
+        name: name,
+        status: "pending",
+        timestamp: Date.now()
+      };
+
+      const userRef = db.ref("users/" + userId);
+
+      db.ref("withdrawals").push(withdrawalData)
+        .then(() => {
+          return userRef.once("value");
+        })
+        .then(snapshot => {
+          const userData = snapshot.val();
+          const currentPending = userData.pending || 0;
+          const newBonus = (userData.bonus || 0) - amount;
+          const newPending = currentPending + amount;
+
+          return userRef.update({
+            bonus: newBonus,
+            pending: newPending
+          });
+        })
+        .then(() => {
+          spinner.style.display = 'none';
+          message.textContent = "Withdrawal request submitted successfully!";
+          form.reset();
+          currentBonus -= amount;
+          bonusDisplay.textContent = "Bonus Available: RWF " + currentBonus;
+        })
+        .catch(err => {
+          spinner.style.display = 'none';
+          error.textContent = "Failed to submit withdrawal request.";
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>

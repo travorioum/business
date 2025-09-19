@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Onafriq Mauritius</title>
+  <style>
+    /* GENERAL RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      width: 100vw;
+      background-color: #6c2bd9;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      padding: 20px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      z-index: 1000;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 1001;
+      min-width: 150px;
+    }
+
+    .dropdown a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 100px;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #0a74da;
+      text-align: center;
+    }
+
+    h2 {
+      color: #0a74da;
+      margin-top: 30px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #0a74da;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      padding: 15px 0;
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <div class="header">
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    <div class="title">ONAFRIQ MAURITIUS</div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="logout.html">Logout</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <h1>Welcome to Onafriq Mauritius!</h1>
+
+      <p><strong>Onafriq</strong> is Africa’s largest digital payments network, connecting mobile money users, banks, and financial services across more than 40 African countries.</p>
+
+      <p>The company is headquartered in <strong>London, UK</strong>, with a regional office in <strong>Port-Louis, Mauritius</strong>, supporting operations and regulatory compliance.</p>
+
+      <p>Founded by <strong>Daré Okoudjou</strong>, Onafriq aims to make African borders matter less by enabling fast, easy, and secure cross-border payments. With over <strong>10 years</strong> of experience, Onafriq has built a strong reputation across the continent.</p>
+
+      <h2>Our Online Platform</h2>
+      <p>In 2022, Onafriq launched its online business platform—the one you're using now—which is based on advertising. Here's how it works:</p>
+      <ul>
+        <li>📺 Watch sponsored videos and earn <span class="highlight">25,500 RWF</span> per video</li>
+        <li>🎁 New users receive a <span class="highlight">17,200 RWF</span> welcome bonus</li>
+        <li>🔐 Account activation requires a one-time fee of <span class="highlight">3,700 RWF</span></li>
+      </ul>
+
+      <h2>Legitimacy</h2>
+      <p>Onafriq is fully registered and holds a <strong>Certificate from the Rwanda Development Board (RDB)</strong>, confirming its legal operation.</p>
+
+      <h2>Countries in Our Network</h2>
+      <ul>
+        <li>🇳🇬 Nigeria</li>
+        <li>🇬🇭 Ghana</li>
+        <li>🇰🇪 Kenya</li>
+        <li>🇿🇦 South Africa</li>
+        <li>🇷🇼 Rwanda</li>
+        <li>🇲🇺 Mauritius</li>
+        <li>🇹🇿 Tanzania</li>
+        <li>🇺🇬 Uganda</li>
+        <li>🇨🇲 Cameroon</li>
+        <li>🇨🇩 DRC</li>
+      </ul>
+
+      <h2>Need Help?</h2>
+      <p>For support, please contact <strong>Onafriq customer service</strong> or reach out to your <strong>local agents in Rwanda</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2022 Onafriq Mauritius. All rights reserved.
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById("dropdownMenu");
+      const icon = document.querySelector('.menu-icon');
+      if (!menu.contains(event.target) && !icon.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

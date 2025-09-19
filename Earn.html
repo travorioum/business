@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch & Earn - ONAFRIQ MAURITIUS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px; /* Push content below header */
+    }
+
+    .header {
+      width: 100vw;
+      background-color: #6c2bd9;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      padding: 20px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      z-index: 1000;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 1001;
+      min-width: 150px;
+    }
+
+    .dropdown a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      flex-grow: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    #welcomeMessage {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .videos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .video-card {
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      max-width: 300px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+    }
+
+    .video-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .video-info h4 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .earn-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .earn-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 40px auto 0;
+      padding: 12px 30px;
+      background-color: #6c2bd9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    <div class="title">ONAFRIQ MAURITIUS</div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="logout.html">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>🎥 Watch & Earn</h1>
+    <h2 id="welcomeMessage">Welcome, User!</h2>
+
+    <div class="videos">
+      <!-- Video 1 -->
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/kpHBxLqkikw" allowfullscreen></iframe>
+        <div class="video-info">
+          <h4>COCA COLA</h4>
+          <button class="earn-btn" data-video-id="video1">Earn RWF 25,500</button>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/_5cEsMhwW4o" allowfullscreen></iframe>
+        <div class="video-info">
+          <h4>VISIT RWANDA</h4>
+          <button class="earn-btn" data-video-id="video2">Earn RWF 25,500</button>
+        </div>
+      </div>
+
+      <!-- Video 3 -->
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/Qfj4urMF8CU" allowfullscreen></iframe>
+        <div class="video-info">
+          <h4>TESLA</h4>
+          <button class="earn-btn" data-video-id="video3">Earn RWF 25,500</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='Dashboard.html'">⬅ Back to Dashboard</button>
+  </div>
+
+  <div class="footer">
+    &copy; 2022 Onafriq Mauritius. All rights reserved.
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbuLoyGu6v7dJUDQ0iM2DkvEZs0D9z2Do",
+      authDomain: "mfs-africa-ltd.firebaseapp.com",
+      databaseURL: "https://mfs-africa-ltd-default-rtdb.firebaseio.com",
+      projectId: "mfs-africa-ltd",
+      storageBucket: "mfs-africa-ltd.appspot.com",
+      messagingSenderId: "686833267635",
+      appId: "1:686833267635:web:c5a531346887f6452bd1c6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    const welcomeEl = document.getElementById("welcomeMessage");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        const userRef = ref(db, users/${uid});
+        try {
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            welcomeEl.textContent = Welcome, ${data.username || "User"}!;
+
+            const watched = data.watchedVideos || {};
+
+            document.querySelectorAll('.earn-btn').forEach(button => {
+              const videoId = button.dataset.videoId;
+              if (watched[videoId]) {
+                button.disabled = true;
+                button.textContent = "Already Earned";
+              }
+
+              button.addEventListener('click', async () => {
+                if (watched[videoId]) return;
+
+                const earnAmount = 25500;
+                const currentTotal = parseInt(data.totalEarn) || 0;
+                const currentBalance = parseInt(data.balance) || 0;
+
+                const newTotal = currentTotal + earnAmount;
+                const newBalance = currentBalance + earnAmount;
+
+                watched[videoId] = true;
+
+                await update(userRef, {
+                  totalEarn: newTotal,
+                  balance: newBalance,
+                  watchedVideos: watched
+                });
+
+                button.disabled = true;
+                button.textContent = "Already Earned";
+                alert(✅ RWF 25,500 added to your earnings and balance!);
+              });
+            });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      } else {
+        window.location.href = "Login.html";
+      }
+    });
+
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById("dropdownMenu");
+      const icon = document.querySelector('.menu-icon');
+      if (!menu.contains(event.target) && !icon.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

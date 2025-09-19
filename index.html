@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ONAFRIQ MAURITIUS - Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f5f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .logo {
+      margin-bottom: 20px;
+    }
+    .bonus {
+      background-color: #1dcf82;
+      color: white;
+      padding: 3px 10px;
+      font-size: 12px;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    h2 {
+      margin: 10px 0;
+    }
+    p {
+      color: gray;
+      font-size: 14px;
+    }
+    p b {
+      color: black;
+    }
+    .form-group {
+      margin: 15px 0;
+      text-align: left;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .form-group small {
+      color: red;
+      display: none;
+      font-size: 13px;
+    }
+    .confirm-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .confirm-section label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .login-btn {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .create-btn {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .create-btn:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+    .create-btn:hover:enabled {
+      background-color: #218838;
+    }
+    .login-text {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .login-text a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .login-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h3 style="color: #A000FF;">ONAFRIQ MAURITIUS</h3>
+    </div>
+    <h2>Sign Up <span class="bonus">RWF 7,500 BONUS</span></h2>
+    <p>Create an account, it's free and TRAVORIUM LTD gives you tons of ways to earn!</p>
+
+    <form id="signupForm">
+      <div class="form-group">
+        <input type="text" id="fullName" placeholder="Your Full Name" required />
+      </div>
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username" required />
+              </div>
+      <div class="form-group">
+        <input type="number" id="phoneNumber" placeholder="Phone Number" required />
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email Address" required />
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+        <small id="passwordError">Passwords do not match.</small>
+      </div>
+
+      <div class="confirm-section">
+        <label>
+          <input type="checkbox" id="confirmCheckbox" />
+          I confirm my registration
+        </label>
+      </div>
+    </form>
+
+    <button type="button" id="okBtn" class="create-btn" disabled>
+      OK
+    </button>
+
+    <div class="login-text">
+      Already have an account? <a href="Login.html">Log in</a>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbuLoyGu6v7dJUDQ0iM2DkvEZs0D9z2Do",
+      authDomain: "mfs-africa-ltd.firebaseapp.com",
+      databaseURL: "https://mfs-africa-ltd-default-rtdb.firebaseio.com",
+      projectId: "mfs-africa-ltd",
+      storageBucket: "mfs-africa-ltd.appspot.com",
+      messagingSenderId: "686833267635",
+      appId: "1:686833267635:web:c5a531346887f6452bd1c6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    const confirmCheckbox = document.getElementById('confirmCheckbox');
+    const passwordError = document.getElementById('passwordError');
+    const okBtn = document.getElementById('okBtn');
+
+confirmCheckbox.addEventListener('change', async (e) => {
+  if (!e.target.checked) return;
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const phoneNumber = document.getElementById('phoneNumber').value.trim(); // ✅ Add this
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+
+  if (!fullName || !username || !phoneNumber || !email || !password || !confirmPassword) {
+    alert("Please fill in all fields.");
+    e.target.checked = false;
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    passwordError.style.display = 'block';
+    e.target.checked = false;
+    return;
+  } else {
+    passwordError.style.display = 'none';
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    await set(ref(db, 'users/' + user.uid), {
+      uid: user.uid,
+      name: fullName,
+      username: username,
+      phone: phoneNumber, // ✅ Save phone number here
+      email: email,
+      balance: 7500,
+      bonus: 0,
+      deposit: 0,
+      createdAt: Date.now()
+    });
+
+    okBtn.disabled = false;
+    confirmCheckbox.disabled = true;
+
+  } catch (error) {
+    alert("Error: " + error.message);
+    e.target.checked = false;
+  }
+});
+
+    okBtn.addEventListener('click', () => {
+      if (!okBtn.disabled) {
+        window.location.href = "Login.html";
+      }
+    });
+  </script>
+</body>
+</html>
